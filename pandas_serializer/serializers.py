@@ -1,7 +1,8 @@
 import pandas as pd
 from sqlalchemy import create_engine
+from .utils.db import get_connection_string
 
-engine = create_engine('sqlite:///db.sqlite3', echo=False)
+engine = create_engine(get_connection_string(), echo=False)
 
 
 class Serializer:
