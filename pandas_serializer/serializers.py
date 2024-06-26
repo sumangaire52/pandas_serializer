@@ -20,12 +20,12 @@ class Serializer(ABC):
         self.pk_field = self.model._meta.pk.name
 
     @property
-    def data(self):
+    def data(self) -> dict:
         with engine.connect() as conn:
             df = pd.read_sql_query(self.query(), conn)
             return df.to_dict(orient="records")
 
-    def query(self):
+    def query(self) -> str:
         fields = ", ".join(self.fields) or "*"
         return (
             f"SELECT {fields} FROM {self.table} WHERE {self.pk_field} EQUALS {self.instance.pk}"
